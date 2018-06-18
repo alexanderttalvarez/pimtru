@@ -1,0 +1,9 @@
+FROM php:7.2-apache
+
+ADD pimtru.local.conf /etc/apache2/sites-available/pimtru.local.conf
+RUN a2enmod rewrite \
+    && a2ensite pimtru.local
+RUN apt-get update \
+    && docker-php-ext-install pdo_mysql
+
+WORKDIR /var/www/html

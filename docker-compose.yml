@@ -1,0 +1,21 @@
+version: '2.1'
+
+services:
+
+  laravel:
+    build:
+      context: ./
+      dockerfile: laravel.docker
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "8081:80"
+
+  db:
+    image: mysql:5.7
+    env_file:
+      - ./mysql.env
+    volumes:
+      - ./storage/mysql:/var/lib/mysql
+    ports:
+      - "33061:3306"
