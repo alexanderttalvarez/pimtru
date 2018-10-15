@@ -7,6 +7,7 @@ use App\Traits\ApiResponser;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Routing\Exceptions\UrlGenerationException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -72,11 +73,15 @@ class Handler extends ExceptionHandler
         }
 
         if( $exception instanceof MethodNotAllowedHttpException ) {
-            return $this->errorResponse( sprintf( __('errors.method_not_allowed')), 404);
+            return $this->errorResponse( __('errors.method_not_allowed'), 404);
         }
 
         if( $exception instanceof UrlGenerationException ) {
-            return $this->errorResponse( sprintf( __('errors.required_parameters')), 404);
+            return $this->errorResponse( __('errors.required_parameters'), 404);
+        }
+
+        if( $exception instanceof HttpException ) {
+            return $this->errorResponse( __($exception->getMessage()), $exception->getStatusCode() );
         }
 
         /*if( $exception instanceof FatalThrowableError ) {
