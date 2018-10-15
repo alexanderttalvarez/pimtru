@@ -12,5 +12,6 @@ return [
     'method_not_allowed'           => 'El método usado no está permitido.',
     'fatal_error'                  => 'Lo sentimos, se ha producido un error fatal.',
     'required_parameters'          => 'Faltan parametros.',
+    'Too Many Attempts.'           => 'Demasiados intentos.',
 
 ];
