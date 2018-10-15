@@ -14,14 +14,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware(
-    'auth:api'
-)->get(
-    '/user', function (Request $request) {
-        return $request->user();
-    }
-);
-
 // Product routes
 Route::apiResources([ 'products' => 'Product\ProductController' ]);
 Route::resource('products.taxonomies', 'Product\ProductTaxonomyController', [ 'only' => [ 'index' ] ]);
@@ -44,17 +36,13 @@ Route::resource('taxonomyTypeMetaValues', 'Taxonomy\TaxonomyTypeMetaValueControl
 Route::resource('taxonomies.taxonomyTypeMetas', 'Taxonomy\TaxonomyTaxonomyTypeMetaController', [ 'only' => [ 'destroy', 'update', 'show' ] ]);
 
 // TODO New routes depending on the taxonomy type name
-/*
-foreach( TaxonomyType::all() as $taxonomyType ) {
-    $taxonomyName = strtolower( $taxonomyType->name );
-    Route::resource($taxonomyName, 'Taxonomy\TaxonomyController', [
-        'parameters' => [
-            $taxonomyName => 'taxonomy'
-        ],
-        'except' => [ 'create', 'edit' ]
-    ]);
-}
-*/
 
 // Manufacturer routes
 Route::apiResources([ 'manufacturers' => 'Manufacturer\ManufacturerController' ]);
+
+// Users
+Route::resource('users', 'User\UserController', [ 'except' => [ 'create', 'edit' ] ]);
+Route::name('verify')->get('users/verify/{token}', 'User\UserController@verify');
+Route::name('resend')->get('users/{user}/resend', 'User\UserController@resendVerification');
+
+Route::post('oauth/token', '\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken');

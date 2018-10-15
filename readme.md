@@ -1,6 +1,9 @@
 # Tutorial
 
-Welcome. This is based on [JuanD MeGon course](https://www.udemy.com/api-restful-con-laravel-php-homestead-passport/) about building an API RESTful with Laravel.
+This is an API RESTful which purpose is to feed different Product Inventory Managers in different devices.
+
+## Inspiration
+This software gets some inspiration from [JuanD MeGon course](https://www.udemy.com/api-restful-con-laravel-php-homestead-passport/) about building an API RESTful with the PHP Framework Laravel.
 
 ## How to get responses in other language
 When sending a request, add the header X-localization with the language code `es,en`. If none is added, it will get english by default.
